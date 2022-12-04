@@ -10,4 +10,7 @@ fun main() {
     println("Day 3:")
     println(day3part1())
     println(day3part2())
+    println("Day 4:")
+    println(day4part1())
+    println(day4part2())
 }
