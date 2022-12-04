@@ -16,8 +16,8 @@ fun day1part2() = Files.lines(Paths.get("input/1.txt")).asSequence()
         if (line.isBlank()) acc.add(mutableListOf())
         else acc.last().add(line.toInt())
         acc
-    } .map { it.sum()
-    } .asSequence()
+    } 
+    .map { it.sum() }
     .sortedDescending()
     .take(3)
     .sum()
