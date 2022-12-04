@@ -48,22 +48,18 @@ fun String.parseResult() = when (this) {
     else -> throw IllegalArgumentException(this)
 }
 
-fun neededFor(result: Result, option: Option) = when(result) {
-    Lose -> option.strongAgainst()
+fun neededFor(result: Result, option: Option) = when (result) {
+    Lose -> when (option) {
+        Rock -> Scissors
+        Paper -> Rock
+        Scissors -> Paper
+    }
     Draw -> option
-    Win -> option.weakAgainst()
-}
-
-fun Option.weakAgainst() = when(this) {
-    Rock -> Paper
-    Paper -> Scissors
-    Scissors -> Rock
-}
-
-fun Option.strongAgainst() = when(this) {
-    Rock -> Scissors
-    Paper -> Rock
-    Scissors -> Paper
+    Win -> when (option) {
+        Rock -> Paper
+        Paper -> Scissors
+        Scissors -> Rock
+    }
 }
 
 fun day2part2() = Files.lines(Paths.get("input/2.txt")).asSequence()
