@@ -4,25 +4,23 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
 
-fun parseCrates(crates: String) =
-    crates.split("\n").dropLast(1)
-        .map { it.windowed(3,4) }
-        .map { it.map { s -> s.trim().replace("[", "").replace("]", "") } }
-        .reversed()
-        .fold(mutableMapOf<Int, Stack<String>>()) { acc, line ->
-            line.forEachIndexed { index, crate ->
-                if (crate.isNotBlank())  
-                    acc.getOrDefault(index + 1, Stack())
-                        .also { it.push(crate) }
-                        .also { acc[index + 1] = it }
-            }
-            acc
+fun parseCrates(crates: String) = crates.split("\n").dropLast(1)
+    .map { it.windowed(3,4) }
+    .map { it.map { s -> s.trim().replace("[", "").replace("]", "") } }
+    .reversed()
+    .fold(mutableMapOf<Int, Stack<String>>()) { acc, line ->
+        line.forEachIndexed { index, crate ->
+            if (crate.isNotBlank())  
+                acc.getOrDefault(index + 1, Stack())
+                    .also { it.push(crate) }
+                    .also { acc[index + 1] = it }
         }
+        acc
+    }
 
-fun parseMoves(moves: String) =
-    moves.split("\n")
-        .map { it.replace("move ", "").replace(" from ", " ").replace(" to ", " ") }
-        .map { it.split(" ").map(String::toInt) }
+fun parseMoves(moves: String) = moves.split("\n")
+    .map { it.replace("move ", "").replace(" from ", " ").replace(" to ", " ") }
+    .map { it.split(" ").map(String::toInt) }
 
 fun MutableMap<Int, Stack<String>>.move(quantity: Int, from: Int, to: Int ): MutableMap<Int, Stack<String>> {
     (1..quantity).forEach { _ -> this[to]!!.push(this[from]!!.pop()) }
