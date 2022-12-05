@@ -25,9 +25,11 @@ fun parseMoves(moves: String) = moves.split("\n")
     .map { it.split(" ").map(String::toInt) }
 
 fun Map<Int, Stack<String>>.move(quantity: Int, from: Int, to: Int) =
-    this.toMutableMap().let {  
-        (1..quantity).forEach { _ -> it[to]!!.push(it[from]!!.pop()) }
-        it.toMap()
+    this.toMutableMap().let { stacks ->  
+        repeat(quantity) { 
+            stacks[to]!!.push(stacks[from]!!.pop()) 
+        }
+        stacks.toMap()
     }
 
 fun Map<Int, Stack<String>>.peekString() = this.entries.sortedBy { it.key }.joinToString("") { it.value.peek() }
