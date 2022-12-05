@@ -34,11 +34,9 @@ fun day5part1() = Files.readString(Paths.get("input/5.txt")).split("\n\n")
     .joinToString("") { it.value.peek() }
 
 fun MutableMap<Int, Stack<String>>.move2(quantity: Int, from: Int, to: Int ): MutableMap<Int, Stack<String>> {
-    (1..quantity).fold(mutableListOf<String>()) { acc, _ -> 
-        acc.add(this[from]!!.pop()) 
-        acc
-    } 
-    .reversed().forEach { this[to]!!.push(it) }
+    (1..quantity)
+        .fold(listOf<String>()) { acc, _ -> (acc + this[from]!!.pop()) }
+        .reversed().forEach { this[to]!!.push(it) }
     return this
 }
 
