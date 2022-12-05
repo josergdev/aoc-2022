@@ -7,8 +7,7 @@ import java.util.*
 fun parseCrates(crates: String) = crates.split("\n").dropLast(1)
     .map { it.windowed(3,4) }
     .map { it.map { s -> s.trim(' ', '[', ']') } }
-    .reversed()
-    .fold(mutableMapOf<Int, Stack<String>>()) { acc, line ->
+    .foldRight(mutableMapOf<Int, Stack<String>>()) { line, acc ->
         line.forEachIndexed { index, crate ->
             if (crate.isNotBlank())  
                 acc.getOrDefault(index + 1, Stack())
