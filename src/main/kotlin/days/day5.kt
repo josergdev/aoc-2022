@@ -6,7 +6,7 @@ import java.util.*
 
 fun parseCrates(crates: String) = crates.split("\n").dropLast(1)
     .map { it.windowed(3,4) }
-    .map { it.map { s -> s.trim().replace("[", "").replace("]", "") } }
+    .map { it.map { s -> s.trim(' ', '[', ']') } }
     .reversed()
     .fold(mutableMapOf<Int, Stack<String>>()) { acc, line ->
         line.forEachIndexed { index, crate ->
