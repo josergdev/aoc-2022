@@ -21,10 +21,7 @@ fun parseCrates(crates: String) =
 
 fun parseMoves(moves: String) =
     moves.split("\n")
-        .map { it.replace("move ", "")
-                .replace(" from ", " ")
-                .replace(" to ", " ") 
-        }
+        .map { it.replace("move ", "").replace(" from ", " ").replace(" to ", " ") }
         .map { it.split(" ").map(String::toInt) }
 
 fun MutableMap<Int, Stack<String>>.move(quantity: Int, from: Int, to: Int ): MutableMap<Int, Stack<String>> {
