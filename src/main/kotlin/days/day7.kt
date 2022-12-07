@@ -41,5 +41,5 @@ fun day7part1() = createMapOfSizes(Files.readString(Paths.get("input/7.txt")))
     .sum()
 
 fun day7part2() = createMapOfSizes(Files.readString(Paths.get("input/7.txt")))
-    .let { it[listOf("/")]!! to it  }
-    .let { (used, map) -> map.entries.sortedBy { it.value }.first { 70000000 - 30000000 - used + it.value > 0 }.value }
+    .let { it[listOf("/")]!! to it.values  }
+    .let { (used, values) -> values.sorted().first { 70000000 - 30000000 - used + it > 0 } }
