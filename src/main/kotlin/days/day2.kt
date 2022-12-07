@@ -32,7 +32,7 @@ fun Option.selectionPoints() = when(this) {
 
 fun day2Part1() = Files.lines(Paths.get("input/2.txt")).asSequence()
     .map { it.split(" ") }
-    .map { Pair(it[0].parseOption(), it[1].parseOption()) }
+    .map { it[0].parseOption() to it[1].parseOption() }
     .map { it.matchPoints() + it.second.selectionPoints() }
     .sum()
 
