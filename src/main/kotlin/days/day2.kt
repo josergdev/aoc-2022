@@ -64,7 +64,7 @@ fun neededFor(result: Result, option: Option) = when (result) {
 
 fun day2part2() = Files.lines(Paths.get("input/2.txt")).asSequence()
     .map { it.split(" ") }
-    .map { Pair(it[0].parseOption(), it[1].parseResult()) }
-    .map { Pair(it.first, neededFor(it.second, it.first)) }
+    .map { it[0].parseOption() to it[1].parseResult() }
+    .map { (option, result) -> option to neededFor(result, option) }
     .map { it.matchPoints() + it.second.selectionPoints() }
     .sum()
