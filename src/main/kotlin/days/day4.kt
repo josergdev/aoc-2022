@@ -15,5 +15,5 @@ fun <T : Comparable<T>> ClosedRange<T>.containsSome(elements: Iterable<T>) = ele
 
 fun day4part2() = Files.lines(Paths.get("input/4.txt")).asSequence()
     .map { it.split(',', '-').map(String::toInt) }
-    .filter { IntRange(it[0], it[1]).containsSome(IntRange(it[2], it[3])) || IntRange(it[2], it[3]).containsSome(IntRange(it[0], it[1])) }
+    .filter { IntRange(it[0], it[1]).containsSome(IntRange(it[2], it[3])) }
     .count()
