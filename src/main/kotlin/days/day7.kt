@@ -9,7 +9,7 @@ fun createMapOfSizes(shellOuput: String): Map<List<String>, Int> = shellOuput
     .map { 
         when {
             it.startsWith("cd") -> "cd" to listOf(it.replaceFirst("cd ", ""))
-            else -> "ls" to it.replaceFirst("ls", "").trim().split("\n")
+            else -> "ls" to it.replaceFirst("ls\n", "").split("\n")
         } 
     }
     .let { it.scan(listOf<String>()) { acc, (command, dirOrStdout) -> 
