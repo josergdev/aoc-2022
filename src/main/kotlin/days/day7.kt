@@ -12,19 +12,24 @@ fun createMapOfSizes(shellOuput: String): Map<List<String>, Int> = shellOuput
             else -> "ls" to it.replaceFirst("ls", "").trim().split("\n")
         } 
     }
-    .let { it.mapIndexed { index, pair -> it.take(index + 1).filter { itl -> itl.first == "cd" }.map { itl-> itl.second } to pair  } }
-    .filter { it.second.first != "cd" }
-    .map { (path, ls) -> path.map { it.first() }.fold(listOf<String>()) { acc, p ->
-        when (p) {
-            ".." -> acc.dropLast(1)
-            else -> acc + p
+    .let { it.scan(listOf<String>()) { acc, (command, dirOrStdout) -> 
+            when(command) {
+                "cd" -> when {
+                    dirOrStdout.first() == ".." -> acc.dropLast(1)
+                    else -> acc + dirOrStdout.first()
+                }
+                else -> acc
+            }
         }
-    } to ls.second }
+        .zip(it)
+    }
+    .filter { (_, command) -> command.first != "cd" }
+    .map { (path, command) -> path to command.second }
     .reversed()
-    .fold(mutableMapOf()) { map, ls ->
-        map[ls.first] = ls.second.sumOf {
+    .fold(mutableMapOf()) { map, (path, ls) ->
+        map[path] = ls.sumOf {
             when {
-                it.startsWith("dir ") -> map[ls.first + it.replace("dir ", "")]!!
+                it.startsWith("dir ") -> map[path + it.replace("dir ", "")]!!
                 else -> it.split(" ")[0].toInt()
             }
         }
