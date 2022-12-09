@@ -20,7 +20,7 @@ fun day8part1() = File("input/8.txt").readLines()
         .mapIndexed { i, e1 ->  e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() }}
         .let { it to it.reversed().map { c -> c.reversed() } }
         .let { (mat, matRev) -> mat + matRev + mat.transpose() + matRev.transpose() }
-        .map { it.fold(setOf<Pair<Pair<Int,Int>,Int>>()) { acc, c ->
+        .map { it.fold(setOf<Pair<Pair<Int, Int>, Int>>()) { acc, c ->
             if (acc.isNotEmpty() && acc.maxOf { ac -> ac.second } >= c.second) acc
             else acc.plus(c)
         } }
