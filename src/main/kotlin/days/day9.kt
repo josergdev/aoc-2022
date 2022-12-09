@@ -36,11 +36,20 @@ fun Pair<Int, Int>.moveTail(head: Pair<Int, Int>) = when {
 
 fun Pair<Int, Int>.isTouching(point: Pair<Int, Int>) = max(abs(point.first - this.first), abs(point.second - this.second)) <= 1
 
-fun day9part1() = File("input/9.txt").readLines()
+fun tailPositions(commands: List<String>, knotsSize: Int) = commands
     .map { it.split(" ") }
     .map { it[0].repeat(it[1].toInt()) }
     .flatMap { it.toList() }
-    .scan((0 to 0) to (0 to 0)) { (head, tail), cmd -> head.moveHead(cmd) to tail.moveTail(head.moveHead(cmd)) }
-    .map { it.second }
+    .scan(List(knotsSize) { 0 to 0 }) { knots, cmd ->
+        knots.drop(1).fold(listOf(knots.first().moveHead(cmd))) { acc, knot ->
+            acc + knot.moveTail(acc.last())
+        }
+    }
+    .map { it.last() }
     .toSet()
     .size
+
+fun day9part1() = tailPositions(File("input/9.txt").readLines(), 2)
+
+
+fun day9part2() = tailPositions(File("input/9.txt").readLines(), 10)
