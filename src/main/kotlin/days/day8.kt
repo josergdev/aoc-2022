@@ -2,9 +2,9 @@ package days
 
 import java.io.File
 
-fun <T> transpose(elements: List<List<T>>): List<List<T>> = when {
-    elements.first().isEmpty() -> listOf()
-    else -> listOf(elements.map { it.first() }) + transpose(elements.map { it.drop(1) })
+fun <T> List<List<T>>.transpose(): List<List<T>> = when {
+    this.first().isEmpty() -> listOf()
+    else -> listOf(this.map { it.first() }) + this.map { it.drop(1) }.transpose()
 }
 
 fun <T> List<T>.takeWhileInclusive(pred: (T) -> Boolean): List<T> {
@@ -19,7 +19,7 @@ fun <T> List<T>.takeWhileInclusive(pred: (T) -> Boolean): List<T> {
 fun day8part1() = File("input/8.txt").readLines()
         .mapIndexed { i, e1 ->  e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() }}
         .let { it to it.reversed().map { c -> c.reversed() } }
-        .let { (mat, matRev) -> mat + matRev + transpose(mat) + transpose(matRev) }
+        .let { (mat, matRev) -> mat + matRev + mat.transpose() + matRev.transpose() }
         .map { it.fold(setOf<Pair<Pair<Int,Int>,Int>>()) { acc, c ->
             if (acc.isNotEmpty() && acc.maxOf { ac -> ac.second } >= c.second) acc
             else acc.plus(c)
@@ -30,7 +30,7 @@ fun day8part1() = File("input/8.txt").readLines()
 fun day8part2() = File("input/8.txt").readLines()
         .mapIndexed { i, e1 -> e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() } }
         .let { it to it.reversed().map { c -> c.reversed() } }
-        .let { (mat, matRev) -> mat + matRev + transpose(mat) + transpose(matRev) }
+        .let { (mat, matRev) -> mat + matRev + mat.transpose() + matRev.transpose() }
         .fold(mutableMapOf<Pair<Pair<Int, Int>, Int>, List<List<Pair<Pair<Int, Int>, Int>>>>()) { acc, p ->
             p.forEachIndexed { index, pair ->
                 if (acc.containsKey(pair)) acc[pair] = acc[pair]!!.plus(listOf(p.subList(index + 1, p.size)))
