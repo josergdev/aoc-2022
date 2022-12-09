@@ -7,15 +7,6 @@ fun <T> List<List<T>>.transpose(): List<List<T>> = when {
     else -> listOf(this.map { it.first() }) + this.map { it.drop(1) }.transpose()
 }
 
-fun <T> List<T>.takeWhileInclusive(pred: (T) -> Boolean): List<T> {
-    var shouldContinue = true
-    return takeWhile {
-        val result = shouldContinue
-        shouldContinue = pred(it)
-        result
-    }
-}
-
 fun day8part1() = File("input/8.txt").readLines()
         .mapIndexed { i, e1 ->  e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() }}
         .let { it to it.reversed().map { c -> c.reversed() } }
@@ -26,6 +17,15 @@ fun day8part1() = File("input/8.txt").readLines()
         } }
         .flatten().toSet()
         .count()
+
+fun <T> List<T>.takeWhileInclusive(pred: (T) -> Boolean): List<T> {
+    var shouldContinue = true
+    return takeWhile {
+        val result = shouldContinue
+        shouldContinue = pred(it)
+        result
+    }
+}
 
 fun day8part2() = File("input/8.txt").readLines()
         .mapIndexed { i, e1 -> e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() } }
@@ -38,6 +38,6 @@ fun day8part2() = File("input/8.txt").readLines()
             }
             acc
         }.entries
-        .map { it.key to it.value.map { lp -> lp.map { p -> p.second } } }
-        .map { (element, neighbours) -> neighbours.map { it.takeWhileInclusive { tree -> tree < element.second }.count() } }
+        .map { it.key.second to it.value.map { lp -> lp.map { p -> p.second } } }
+        .map { (element, neighbours) -> neighbours.map { it.takeWhileInclusive { tree -> tree < element }.count() } }
         .maxOf { it.reduce { acc, i -> acc * i } }
