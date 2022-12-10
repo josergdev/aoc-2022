@@ -35,11 +35,11 @@ fun createMapOfSizes(shellOuput: String): Map<List<String>, Int> = shellOuput
         map
     }
 
-fun day7part1() = createMapOfSizes(Files.readString(Paths.get("input/7.txt")))
+fun day7part1() = createMapOfSizes(Files.readString(Paths.get("input/07.txt")))
     .values
     .filter { it <= 100000 }
     .sum()
 
-fun day7part2() = createMapOfSizes(Files.readString(Paths.get("input/7.txt")))
+fun day7part2() = createMapOfSizes(Files.readString(Paths.get("input/07.txt")))
     .let { it[listOf("/")]!! to it.values  }
     .let { (used, values) -> values.sorted().first { 70000000 - 30000000 - used + it > 0 } }

@@ -7,7 +7,7 @@ fun <T> List<List<T>>.transpose(): List<List<T>> = when {
     else -> listOf(this.map { it.first() }) + this.map { it.drop(1) }.transpose()
 }
 
-fun day8part1() = File("input/8.txt").readLines()
+fun day8part1() = File("input/08.txt").readLines()
         .mapIndexed { i, e1 ->  e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() }}
         .let { it to it.reversed().map { c -> c.reversed() } }
         .let { (mat, matRev) -> mat + matRev + mat.transpose() + matRev.transpose() }
@@ -27,7 +27,7 @@ fun <T> List<T>.takeWhileInclusive(pred: (T) -> Boolean): List<T> {
     }
 }
 
-fun day8part2() = File("input/8.txt").readLines()
+fun day8part2() = File("input/08.txt").readLines()
         .mapIndexed { i, e1 -> e1.mapIndexed { j, e2 -> (i to j) to e2.digitToInt() } }
         .let { it to it.reversed().map { c -> c.reversed() } }
         .let { (mat, matRev) -> mat + matRev + mat.transpose() + matRev.transpose() }

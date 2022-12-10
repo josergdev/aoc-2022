@@ -30,7 +30,7 @@ fun Option.selectionPoints() = when(this) {
     Scissors -> 3
 }
 
-fun day2Part1() = Files.lines(Paths.get("input/2.txt")).asSequence()
+fun day2Part1() = Files.lines(Paths.get("input/02.txt")).asSequence()
     .map { it.split(" ") }
     .map { it[0].parseOption() to it[1].parseOption() }
     .map { it.matchPoints() + it.second.selectionPoints() }
@@ -62,7 +62,7 @@ fun neededFor(result: Result, option: Option) = when (result) {
     }
 }
 
-fun day2part2() = Files.lines(Paths.get("input/2.txt")).asSequence()
+fun day2part2() = Files.lines(Paths.get("input/02.txt")).asSequence()
     .map { it.split(" ") }
     .map { it[0].parseOption() to it[1].parseResult() }
     .map { (option, result) -> option to neededFor(result, option) }

@@ -34,7 +34,7 @@ fun Map<Int, Stack<String>>.move(quantity: Int, from: Int, to: Int) =
 
 fun Map<Int, Stack<String>>.peekString() = this.entries.sortedBy { it.key }.joinToString("") { it.value.peek() }
 
-fun day5part1() = Files.readString(Paths.get("input/5.txt")).split("\n\n")
+fun day5part1() = Files.readString(Paths.get("input/05.txt")).split("\n\n")
     .let { parseCrates(it[0]) to parseMoves(it[1]) }
     .let { (crates, moves) -> moves.fold(crates) { acc, move -> acc.move(move[0], move[1], move[2]) } }
     .peekString()
@@ -47,7 +47,7 @@ fun Map<Int, Stack<String>>.move2(quantity: Int, from: Int, to: Int) =
         it.toMap()
     }
 
-fun day5part2() = Files.readString(Paths.get("input/5.txt")).split("\n\n")
+fun day5part2() = Files.readString(Paths.get("input/05.txt")).split("\n\n")
     .let { parseCrates(it[0]) to parseMoves(it[1]) }
     .let { (crates, moves) -> moves.fold(crates) { acc, move -> acc.move2(move[0], move[1], move[2]) } }
     .peekString()

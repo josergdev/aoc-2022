@@ -49,7 +49,7 @@ fun tailPositions(commands: List<String>, knotsSize: Int) = commands
     .toSet()
     .size
 
-fun day9part1() = tailPositions(File("input/9.txt").readLines(), 2)
+fun day9part1() = tailPositions(File("input/09.txt").readLines(), 2)
 
 
-fun day9part2() = tailPositions(File("input/9.txt").readLines(), 10)
+fun day9part2() = tailPositions(File("input/09.txt").readLines(), 10)

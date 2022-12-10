@@ -3,7 +3,7 @@ package days
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class Day5Test {
+internal class Day05Test {
     
     @Test
     fun day5part1Test() {
