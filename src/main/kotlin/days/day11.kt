@@ -50,13 +50,13 @@ fun inspectItem(
     monkeyItems.toMutableMap().let {
         it[monkey] = it[monkey]!!.first.drop(1) to it[monkey]!!.second + 1
         val newItem = monkeyBehaviour[monkey]!!.first(item)
-        val newItemDivided = worryReduction(newItem)
+        val newItemReduced = worryReduction(newItem)
         val newMonkey =
-            if ((newItemDivided % monkeyBehaviour[monkey]!!.second.first) == 0L) 
+            if ((newItemReduced % monkeyBehaviour[monkey]!!.second.first) == 0L) 
                 monkeyBehaviour[monkey]!!.second.second 
             else 
                 monkeyBehaviour[monkey]!!.second.third
-        it[newMonkey] = it[newMonkey]!!.first.plus(newItemDivided) to it[newMonkey]!!.second
+        it[newMonkey] = it[newMonkey]!!.first.plus(newItemReduced) to it[newMonkey]!!.second
         it.toMap()
     }
 
