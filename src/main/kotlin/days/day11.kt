@@ -36,7 +36,8 @@ fun monkeyInspect(
     monkeyItems: Map<Long, Pair<List<Long>, Long>>, 
     monkeyBehaviour: Map<Long, Pair<(Long) -> Long, Triple<Long, Long, Long>>>,
     worryReduction: (Long) -> Long,
-    monkey: Long) =
+    monkey: Long
+) =
     monkeyItems[monkey]!!.first.fold(monkeyItems) { map , item ->  inspectItem(map, monkeyBehaviour, worryReduction, monkey, item) }
 
 fun inspectItem(
@@ -44,7 +45,8 @@ fun inspectItem(
     monkeyBehaviour: Map<Long, Pair<(Long) -> Long, Triple<Long, Long, Long>>>,
     worryReduction: (Long) -> Long,
     monkey: Long, 
-    item: Long) =
+    item: Long
+) =
     monkeyItems.toMutableMap().let {
         it[monkey] = it[monkey]!!.first.drop(1) to it[monkey]!!.second + 1
         val newItem = monkeyBehaviour[monkey]!!.first(item)
